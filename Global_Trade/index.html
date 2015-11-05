@@ -1,0 +1,120 @@
+<html>
+
+<head>
+	<title>Global Trade</title>
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.11/themes/css/cartodb.css" />
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.11/cartodb.js"></script>
+    <style>
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    #map {
+        width: 100%;
+        height: 100%;
+        background: black;
+    }
+
+    #menu {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        width: 400px;
+        height: 60px;
+        background: transparent;
+        z-index: 10;
+    }
+
+    #menu a {
+        margin: 56px 90px 0 -70;
+        float: right;
+        vertical-align: baseline;
+        width: 50px;
+        padding: 9px;
+        text-align: center;
+        font: bold 13px "Helvetica", Arial;
+        line-height: normal;
+        color: #e9e9e9;
+        border-radius: 5px;
+        border: 0px solid #777777;
+        background:rgba(211,211,211,0.4);  
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    #menu a.selected,
+    #menu a:hover {
+        color: #FF7F66;
+    }
+
+    .cartodb-layer-selector-box,
+    .cartodb-searchbox{
+        display: none !important;
+    }
+    </style>
+    <script>
+    var layer;
+
+
+    function init() {
+    cartodb.createVis('map', 'https://timothymartin76.cartodb.com/api/v2/viz/5fdf1840-833a-11e5-8d7c-0e31c9be1b51/viz.json', {
+		shareable: true,
+		title: true,
+		description: false,
+		search: false,
+		time_slider: false,
+		tiles_loader: true,
+		center_lat: 22.873529,
+		center_lon: -3.394616, 
+		zoom: 3
+		})
+          .done(function(vis, layers) {
+		    // Set max zoom
+          vis.map.set({
+            minZoom: 2,
+            maxZoom: 14
+          });
+		  
+           layer = layers[1];
+           });
+		}
+		
+		
+
+    function showLayer(layerToShow) {
+
+        //turn off all layers
+        layer.getSubLayers().forEach(function(i) {
+            i.hide()
+        });
+
+        switch (layerToShow.id) {
+            case "Imports":
+                layer.getSubLayer(0).show();
+                break;
+            case "Exports":
+                layer.getSubLayer(1).show();
+                break;
+            case "Both":
+                layer.getSubLayer(2).show();
+                break;
+        }
+        return true;
+    }
+    </script>
+</head>
+
+<body onload="init()">
+    <div id='map'></div>
+    <div id='menu'>
+        <a href="#Both" id="Both" class="button Both" onclick="showLayer(this);">Both</a>
+		<a href="#Exports" id="Exports" class="button Exports" onclick="showLayer(this);">Exports</a>
+		<a href="#Imports" id="Imports" class="button Imports" onclick="showLayer(this);">Imports</a>
+    </div>
+</body>
+
+</html>
