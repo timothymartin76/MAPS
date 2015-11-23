@@ -1,1 +1,130 @@
-html1
+<html>
+
+<head>
+	<title>Malawi Housing Data</title>
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.11/themes/css/cartodb.css" />
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.11/cartodb.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <style>
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+		font-family: 'Lato';
+    }
+
+    #map {
+        width: 100%;
+        height: 100%;
+        background: black;
+		font-family: 'Lato';
+    }
+
+    #menu {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        width: 400px;
+        height: 60px;
+        background: transparent;
+        z-index: 10;
+		font-family: 'Lato';
+    }
+
+    #menu a {
+        margin: 56px 90px 0 -70;
+        float: right;
+        width: 70px;
+		height: 17px;
+        padding: 15px;
+        text-align: center;
+        font: bold 15px "Lato";
+		vertical-align: middle;
+        line-height: normal;
+        color: #fff;
+        border-radius: 5px;
+        border: 0px solid #d3d3d3;
+        background:rgba(0,0,0,0.4);  
+        text-decoration: none;
+        cursor: pointer;
+		font-family: 'Lato';
+    }
+
+    #menu a.selected,
+    #menu a:hover {
+        color: #FF7F66;
+    }
+
+    .cartodb-layer-selector-box,
+    .cartodb-searchbox{
+        display: none !important;
+    }
+    </style>
+    <script>
+    var layer;
+
+
+    function init() {
+    cartodb.createVis('map', 'https://timothymartin76.cartodb.com/api/v2/viz/376a4914-9223-11e5-b02d-0e31c9be1b51/viz.json', {
+		shareable: true,
+		title: true,
+		description: false,
+		search: false,
+		time_slider: false,
+		tiles_loader: true,
+		center_lat: -13.002616, 
+		center_lon: 34.319389, 
+		zoom: 7
+		})
+          .done(function(vis, layers) {
+		    // Set max zoom
+          vis.map.set({
+            minZoom: 5,
+            maxZoom: 9
+          });
+		  
+           layer = layers[1];
+           });
+		}
+		
+		
+
+    function showLayer(layerToShow) {
+
+        //turn off all layers
+        layer.getSubLayers().forEach(function(i) {
+            i.hide()
+        });
+
+        switch (layerToShow.id) {
+		
+		    case "No access to electricity":
+                layer.getSubLayer(0).show();
+                break;
+
+            case "Unimproved sanitation":
+                layer.getSubLayer(1).show();
+                break;
+				
+			case "Unimproved drinking water":
+                layer.getSubLayer(2).show();
+                break;
+
+        }
+        return true;
+    }
+    </script>
+</head>
+
+<body onload="init()">
+    <div id='map'></div>
+    <div id='menu'>
+        <a href="#No access to electricity" id="No access to electricity" class="button No access to electricity" onclick="showLayer(this);">Electricity</a>
+		<a href="#Unimproved sanitation" id="Unimproved sanitation" class="button Unimproved sanitation" onclick="showLayer(this);">Sanitation</a>
+		<a href="#Unimproved drinking water" id="Unimproved drinking water" class="button Unimproved drinking water" onclick="showLayer(this);">Water</a>
+    </div>
+</body>
+
+</html>
