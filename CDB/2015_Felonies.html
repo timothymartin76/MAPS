@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>2015 Felonies</title>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<style>
+		html, body, #map {
+		height: 100%;
+		padding: 0;
+		margin: 0;
+		}
+		
+		h4, h3 {
+    color: #dbdbdb;
+		}
+</style>
+<link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.13/themes/css/cartodb.css" />
+</head>
+<body>
+<div id="map"></div>
+<div class='cartodb-legend custom' style="background:rgba(255,255,255,0); border-color: transparent;">	
+		<div class="legend-title"><H3>Felony Offenses</H3></div>
+		<ul>
+			<li>
+				<div class="bullet" style="background:#A6CEE3"></div>
+				<H4>BURGLARY</H4>
+			</li>
+			<li>
+				<div class="bullet" style="background:#1F78B4"></div>
+				<H4>FELONY ASSAULT</H4>
+			</li>
+			<li>
+				<div class="bullet" style="background:#B2DF8A"></div>
+				<H4>GRAND LARCENY</H4>
+			</li>
+			<li>
+				<div class="bullet" style="background:#33A02C"></div>
+				<H4>GRAND LARCENY OF MOTOR VEHICLE &nbsp; &nbsp; &nbsp;</H4>
+			</li>
+			<li>
+				<div class="bullet" style="background:#FB9A99"></div>
+				<H4>MURDER</H4>
+			</li>
+			<li>
+				<div class="bullet" style="background:#E31A1C"></div>
+				<H4>RAPE</H4>
+			</li>
+			
+			<li>
+				<div class="bullet" style="background:#FDBF6F"></div>
+				<H4>ROBBERY</H4>
+			</li>
+		</ul>
+		</div>
+	
+
+<!-- include cartodb.js library -->
+<script src="http://libs.cartocdn.com/cartodb.js/v3/3.13/cartodb.js"></script>
+<script>
+function main() {
+cartodb.createVis('map', 'https://timothymartin76.cartodb.com/api/v2/viz/e60fee2c-ae63-11e5-8dcb-0e5db1731f59/viz.json', {
+shareable: false,
+title: true,
+description: true,
+search: false,
+//time_slider: false,
+tiles_loader: true,
+center_lat: 40.694526, 
+center_lon: -73.936176,
+zoom: 12
+})
+.done(function(vis, layers) {
+// layer 0 is the base layer, layer 1 is cartodb layer
+// setInteraction is disabled by default
+
+ vis.map.set({
+            minZoom: 12,
+            maxZoom: 14
+          });
+
+
+
+layers[1].setInteraction(true);
+layers[1].on('featureOver', function(e, latlng, pos, data) {
+cartodb.log.log(e, latlng, pos, data);
+});
+// you can get the native map to work with it
+var map = vis.getNativeMap();
+})
+.error(function(err) {
+console.log(err);
+});
+}
+window.onload = main;
+</script>
+</body>
+</html>
