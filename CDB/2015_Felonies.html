@@ -27,11 +27,12 @@
 <script>
 function main() {
 cartodb.createVis('map', 'https://timothymartin76.cartodb.com/api/v2/viz/e60fee2c-ae63-11e5-8dcb-0e5db1731f59/viz.json', {
-shareable: false,
+shareable: true,
+scrollwheel: true,
 title: false,
 description: true,
-fullscreen : false,
-zoomControl: false,
+fullscreen : true,
+zoomControl: true,
 search: false,
 //time_slider: false,
 tiles_loader: true,
