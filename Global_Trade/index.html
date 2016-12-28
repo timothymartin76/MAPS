@@ -2,8 +2,14 @@
 
 <head>
 	<title>Global Trade</title>
+	
+
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.11/themes/css/cartodb.css" />
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.11/cartodb.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
+
+	
+	
     <style>
     html,
     body {
@@ -21,27 +27,20 @@
 
     #menu {
         position: absolute;
-        top: 5px;
-        right: 10px;
-        width: 400px;
-        height: 60px;
-        background: transparent;
-        z-index: 10;
+        top: 80px;
+        left: 20px;
     }
 
     #menu a {
-        margin: 56px 90px 0 -70;
-        float: right;
-        vertical-align: baseline;
-        width: 50px;
-        padding: 9px;
-        text-align: center;
-        font: bold 13px "Helvetica", Arial;
-        line-height: normal;
+        padding: 0.7em;
+		margin: 10px 0px 0 0;
+		display: block;
+		text-align: center;
+        font: 1.1em 'Droid Sans', Helvetica, Arial, sans-serif;
         color: #e9e9e9;
         border-radius: 5px;
-        border: 0px solid #777777;
-        background:rgba(211,211,211,0.4);  
+		border: 1px solid #666;
+        background:rgba(211,211,211,0.7);  
         text-decoration: none;
         cursor: pointer;
     }
@@ -111,10 +110,11 @@
 <body onload="init()">
     <div id='map'></div>
     <div id='menu'>
+	<a href="#Imports" id="Imports" class="button Imports" onclick="showLayer(this);">Imports</a>
+	<a href="#Exports" id="Exports" class="button Exports" onclick="showLayer(this);">Exports</a>
         <a href="#Both" id="Both" class="button Both" onclick="showLayer(this);">Both</a>
-		<a href="#Exports" id="Exports" class="button Exports" onclick="showLayer(this);">Exports</a>
-		<a href="#Imports" id="Imports" class="button Imports" onclick="showLayer(this);">Imports</a>
     </div>
+	
 </body>
 
 </html>
