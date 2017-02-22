@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SF Running Patterns</title>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<style>
+		html, body, #map {
+		height: 100%;
+		padding: 0;
+		margin: 0;
+		}
+		
+
+		
+		
+</style>
+<link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+</head>
+<body>
+<div id="map"></div>
+<!-- include cartodb.js library -->
+<script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
+<script>
+function main() {
+cartodb.createVis('map', 'https://timothymartin76.carto.com/api/v2/viz/d3bd739e-f94d-11e6-a900-0e8c56e2ffdb/viz.json', {
+shareable: false,
+zoomControl: true,
+https: true, 
+fullscreen : true,
+scrollwheel: true,
+title: true,
+description: false,
+search: false,
+time_slider: false,
+tiles_loader: true,
+center_lat: 37.780531, 
+center_lon: -122.432987,
+zoom: 13
+})
+.done(function(vis, layers) {
+// layer 0 is the base layer, layer 1 is cartodb layer
+// setInteraction is disabled by default
+ // Set max zoom
+          vis.map.set({
+            minZoom: 6,
+            maxZoom: 18
+          });
+
+
+
+
+layers[1].setInteraction(true);
+layers[1].on('featureOver', function(e, latlng, pos, data) {
+cartodb.log.log(e, latlng, pos, data);
+});
+// you can get the native map to work with it
+var map = vis.getNativeMap();
+})
+.error(function(err) {
+console.log(err);
+});
+}
+window.onload = main;
+</script>
+</body>
+</html>
